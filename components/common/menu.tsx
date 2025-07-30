@@ -1,41 +1,23 @@
-import { Dispatch, SetStateAction } from "react";
-import { MENULINKS } from "../../constants";
+import { useState } from 'react';
 
-const Menu = ({
-  setmenuVisible,
-}: {
-  setmenuVisible: Dispatch<SetStateAction<boolean>>;
-}) => {
+const Menu = ({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) => {
+  if (!isVisible) return null;
+
   return (
-    <section
-      className="menu fixed top-0 left-0 w-full h-full overflow-hidden invisible pointer-events-none flex items-center justify-center"
-      style={{ visibility: "hidden" }}
-    >
-      <div className="flex-none overflow-hidden flex items-center justify-center">
-        <div className="text-center opacity-0 overflow-y-auto flex flex-none justify-center items-center max-h-screen">
-          <ul
-            className="list-none py-4 px-0 m-0 block max-h-screen"
-            role="menu"
-          >
-            {MENULINKS.map((el) => (
-              <li
-                className="p-0 m-6 text-2xl block"
-                key={el.name}
-                role="menuitem"
-              >
-                <a
-                  className="link relative inline font-bold text-5xl duration-300 hover:no-underline"
-                  href={`#${el.ref}`}
-                  onClick={setmenuVisible.bind(null, false)}
-                >
-                  {el.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <button onClick={onClose} className="text-black font-bold text-2xl absolute top-4 right-4">
+          ×
+        </button>
+        <ul className="text-black text-lg space-y-4">
+          <li><a href="#home" className="hover:text-gray-700">Home</a></li>
+          <li><a href="#about" className="hover:text-gray-700">About</a></li>
+          <li><a href="#skills" className="hover:text-gray-700">Skills</a></li>
+          <li><a href="#experience" className="hover:text-gray-700">Experience</a></li>
+          <li><a href="#contact" className="hover:text-gray-700">Contact</a></li>
+        </ul>
       </div>
-    </section>
+    </div>
   );
 };
 
