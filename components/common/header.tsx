@@ -1,31 +1,28 @@
-import Image from "next/image";
-import { useState } from "react";
-import Menu from "@/components/common/menu";
+import Image from 'next/image';
+import { useState } from 'react';
+import Menu from './menu'; // Relative import since @/ might not be configured
 
 const Header = () => {
-  const [menuVisible, setmenuVisible] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  const toggleMenu = () => setMenuVisible(!menuVisible);
 
   return (
-    <header className="w-full fixed top-0 py-8 select-none z-50 bg-gradient-to-b from-gray-900 to-transparent">
-      <div className="flex justify-between section-container">
-        <a href="#home" className="link">
-          <Image
-            src="/matt-logo.png"
-            alt="Logo - Matt Haydon II"
-            width={44}
-            height={44}
-          />
-        </a>
-        <nav className={`outer-menu ${menuVisible ? "menu-visible" : ""}`}>
-          <button
-            className="hamburger w-6 h-6 flex items-center justify-center link relative"
-            onClick={setmenuVisible.bind(null, !menuVisible)}
-          >
-            <div className="relative flex-none w-full bg-white duration-300 flex items-center justify-center"></div>
-          </button>
-          <Menu setmenuVisible={setmenuVisible} />
+    <header className="fixed top-0 w-full bg-gray-900 text-white z-40">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <Image src="/logo.svg" alt="Logo" width={40} height={40} />
+        <nav className="hidden md:flex space-x-6">
+          <a href="#home" className="hover:text-gray-400">Home</a>
+          <a href="#about" className="hover:text-gray-400">About</a>
+          <a href="#skills" className="hover:text-gray-400">Skills</a>
+          <a href="#experience" className="hover:text-gray-400">Experience</a>
+          <a href="#contact" className="hover:text-gray-400">Contact</a>
         </nav>
+        <button className="md:hidden text-2xl" onClick={toggleMenu}>
+          ☰
+        </button>
       </div>
+      <Menu isVisible={menuVisible} onClose={toggleMenu} />
     </header>
   );
 };
